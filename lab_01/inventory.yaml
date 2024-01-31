@@ -1,0 +1,29 @@
+---
+
+all:
+  children:
+    control:
+    nodes:
+
+control:
+  hosts:
+    control1:
+      ansible_host: 192.168.56.21
+  vars:  
+    ansible_user: 'vagrant'
+    ansible_ssh_private_key_file: './.vagrant/machines/control1/virtualbox/private_key'
+
+nodes:
+  hosts:
+    node2:
+      ansible_host: 192.168.56.22
+      ansible_ssh_private_key_file: './.vagrant/machines/node2/virtualbox/private_key'
+    node3:
+      ansible_host: 192.168.56.23
+      ansible_ssh_private_key_file: './.vagrant/machines/node3/virtualbox/private_key'
+    node4:
+      ansible_host: 192.168.56.24
+      ansible_ssh_private_key_file: './.vagrant/machines/node4/virtualbox/private_key'
+  vars:  
+    ansible_user: 'vagrant'
+
