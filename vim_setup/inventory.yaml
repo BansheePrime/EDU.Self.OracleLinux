@@ -1,0 +1,9 @@
+---
+
+all:
+  hosts:
+    station:
+      ansible_host: 192.168.56.19
+      ansible_user: 'vagrant'
+      ansible_ssh_private_key_file: './.vagrant/machines/station/virtualbox/private_key'
+
