@@ -1,0 +1,13 @@
+---
+
+- hosts: db
+  become: true
+  tasks:
+    - name: create user
+      community.mysql.mysql_user:
+        name: django
+        password: 1234
+        host: '%'
+        priv: '*.*:ALL'
+        state: present
+

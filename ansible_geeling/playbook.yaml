@@ -1,11 +1,10 @@
 ---
 
-- name: update vm
+- name: test vm's
   gather_facts: false
   hosts: all
-  tasks:
-
-    - name: display config
-      debug:
-      msg: "The hostname is {{ansible_net_hostname}} and the OS is {{ansible_net_version}}
+  tasks: 
+    - name: Get uptime information
+      ansible.builtin.shell: /usr/bin/uptime
+      register: result
 

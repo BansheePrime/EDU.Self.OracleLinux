@@ -1,0 +1,11 @@
+---
+
+- name: django installation
+  hosts: app
+  gather_facts: false
+  become: true
+  tasks: 
+    - name: pip module
+      ansible.builtin.pip:
+        name: django<4
+

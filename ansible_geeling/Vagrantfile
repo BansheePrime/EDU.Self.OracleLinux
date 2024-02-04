@@ -4,17 +4,37 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "alpine319"
-  config.vm.define "alpine"
-  
-  config.vm.provider "virtualbox" do |vb|
-    vb.name = "alpine"
-    vb.customize ["modifyvm", :id, "--memory", 2048]
-    vb.customize ["modifyvm", :id, "--cpus", 1]
-  end
-  
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yaml"
-  end
+    # General Vagrant VM configuration.
+    config.vm.box = "rocky9"
+    config.ssh.insert_key = false
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    config.vm.provider :virtualbox do |v|
+        v.memory = 1024
+        v.linked_clone = true
+    end
+
+    # Application server 1.
+    config.vm.define "app1" do |app|
+        app.vm.hostname = "orc-app1.test"
+        app.vm.network :private_network, ip: "192.168.56.4"
+    end
+
+    # Application server 2.
+    config.vm.define "app2" do |app|
+        app.vm.hostname = "orc-app2.test"
+        app.vm.network :private_network, ip: "192.168.56.5"
+    end
+
+    # Database server.
+    config.vm.define "db" do |db|
+        db.vm.hostname = "orc-db.test"
+        db.vm.network :private_network, ip: "192.168.56.6"
+    end
+
+    # Ansible provisioning
+    config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "playbook.yaml"
+    end    
 end
 
