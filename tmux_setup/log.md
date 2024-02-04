@@ -50,5 +50,7 @@ main() {
 main
 ```
 
-###
+### two versions of .conf file with and without plugins
+.tmux.conf.no_plugins
+.tmux.conf.with_plugins
 
