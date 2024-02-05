@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: ensure sshd is started and enabled
+      service:
+        name: sshd
+        state: started
+        enabled: yes
+    
+    - name: get uptime information
+      ansible.builtin.shell: /usr/bin/uptime
+      register: result
