@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: get uptime information
+      ansible.builtin.shell: /usr/bin/uptime
+      register: result
