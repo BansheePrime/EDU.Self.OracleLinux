@@ -1,0 +1,9 @@
+- hosts: all
+  become: true
+  tasks:
+
+  - name: the crb repository is enabled
+    community.general.dnf_config_manager:
+      name: crb
+      state: enabled
+
