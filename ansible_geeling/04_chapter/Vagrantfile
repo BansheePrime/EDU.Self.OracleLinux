@@ -1,0 +1,53 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+BOX = "oraclelinux/9"
+RAM = 4096
+CPU = 2
+SGUEST = 22
+WGUEST = 80
+SID = "ssh"
+WID = "web"
+PLAYBOOK = "playbook.yaml"
+
+servers=[
+{
+  :hostname => "friday",
+  :ip => "192.168.56.33",
+  :port => 2233,
+  :wport => 8033
+  },
+{
+  :hostname => "robinson",
+  :ip => "192.168.56.34",
+  :port => 2234,
+  :wport => 8034
+  }
+]
+
+Vagrant.configure("2") do |config|
+  config.vm.box_url = "https://oracle.github.io/vagrant-projects/boxes/oraclelinux/9.json"
+  servers.each do |server|
+    config.vm.define server[:hostname] do |node|
+      node.vm.define server[:hostname]
+      node.vm.box = BOX
+      node.vm.hostname = server[:hostname]
+      node.vm.network "private_network", ip: server[:ip]
+      node.vm.network "forwarded_port", guest: SGUEST, host: server[:port], id: SID
+      node.vm.network "forwarded_port", guest: WGUEST, host: server[:wport], id: WID
+
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.linked_clone = true
+        vb.name = server[:hostname]
+        vb.customize ["modifyvm", :id, "--memory", RAM]
+        vb.customize ["modifyvm", :id, "--cpus", CPU]
+      end
+      
+      node.vm.provision "ansible" do |ansible|
+        ansible.playbook = PLAYBOOK
+      end
+    end
+  end
+end
+

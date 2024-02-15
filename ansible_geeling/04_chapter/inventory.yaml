@@ -1,0 +1,14 @@
+all:
+  hosts:
+    friday:
+      ansible_host: 192.168.56.33
+      ansible_ssh_user: vagrant
+      ansible_ssh_private_key_file: '/home/gidra/Public/EDU.Self.OracleLinux/ansible_geeling/04_chapter/.vagrant/machines/friday/virtualbox/private_key'
+
+    robinson:
+      ansible_host: 192.168.56.34
+      ansible_ssh_user: vagrant
+      ansible_ssh_private_key_file: '/home/gidra/Public/EDU.Self.OracleLinux/ansible_geeling/04_chapter/.vagrant/machines/robinson/virtualbox/private_key'
+
+  vars:
+    ansible_python_interpreter: auto_silent
