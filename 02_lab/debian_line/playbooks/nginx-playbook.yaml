@@ -1,9 +1,18 @@
-- hosts: all
-  become: true
-  tasks:
+---
 
-  - name: apt install nginx 
-    apt:
-      name: nginx
-      state: present
+- hosts: all
+  become: yes
+  tasks:
+    - name: update apt cache and make sure curl, wget, unzip, rsync, git, vim and tmux are installed
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+      loop:
+        - curl
+        - wget
+        - unzip
+        - rsync
+        - git
+        - vim
+        - tmux
 

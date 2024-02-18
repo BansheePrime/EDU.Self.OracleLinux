@@ -29,3 +29,6 @@ unbind C-b
 # Reload the file with Prefix r
 # bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
+# Keeping history
+set -g hestory-file ~/.tmux_history
+
