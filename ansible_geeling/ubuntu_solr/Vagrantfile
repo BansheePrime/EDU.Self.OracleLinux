@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu2204"
+  config.vm.hostname = "ling-ling"
+  config.vm.define "ling-ling"
+  config.vm.network :private_network, ip: "192.168.56.47"
+    
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "ling-ling"
+    vb.customize ["modifyvm", :id, "--memory", 4096]
+    vb.customize ["modifyvm", :id, "--cpus", 2]
+  end
+  
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "playbook.yaml"
+  end
+end
+
